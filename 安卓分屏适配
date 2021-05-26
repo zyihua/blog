@@ -1,0 +1,21 @@
+如何判断设备是否处于分屏状态？
+
+在Activity中重写onMultiWindowModeChanged方法和isInMultiWindowMode方法
+~~~
+@Override
+public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
+    super.onMultiWindowModeChanged(isInMultiWindowMode);
+}
+@Override
+public boolean isInMultiWindowMode() {
+    return super.isInMultiWindowMode();
+}
+~~~
+并在生命周期onResume中调用isInMultiWindowMode方法主动查询下状态
+~~~
+@Override
+protected void onResume() {
+    super.onResume();
+    boolean IS_IN_MULTI_WINDOW_MODE = isInMultiWindowMode()
+}
+~~~
