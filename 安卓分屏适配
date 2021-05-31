@@ -6,16 +6,15 @@
 public void onMultiWindowModeChanged(boolean isInMultiWindowMode) {
     super.onMultiWindowModeChanged(isInMultiWindowMode);
 }
-@Override
-public boolean isInMultiWindowMode() {
-    return super.isInMultiWindowMode();
-}
 ~~~
 并在生命周期onResume中调用isInMultiWindowMode方法主动查询下状态
+注：分屏仅在安卓7开始支持
 ~~~
 @Override
 protected void onResume() {
     super.onResume();
-    boolean IS_IN_MULTI_WINDOW_MODE = isInMultiWindowMode()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        boolean IS_IN_MULTI_WINDOW_MODE = isInMultiWindowMode()
+    }
 }
 ~~~
