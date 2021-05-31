@@ -1,0 +1,21 @@
+# URL SCHEMES协议格式
+
+一个完整的 URL Schema 协议格式如下：
+~~~
+scheme://com.xxx.xxx/path?name=xxx&id=xxx
+~~~
+协议分四部分：
+scheme 代表该 Scheme 协议名称（scheme）
+com.xxx.xxx 代表 Scheme 作用于哪个地址域（host）
+path 代表 Scheme 指定的页面（path）
+name和id 代表传递的参数（query）
+
+# 使用安卓deeplink
+
+在AndroidManifest中声明
+~~~
+<data
+  android:scheme="scheme"
+  android:host="host"
+  android:pathPrefix="/path" />
+~~~
