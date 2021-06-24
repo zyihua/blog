@@ -28,3 +28,33 @@ public static int bitCount(int i) {
 第二步：暂时没有好的优化方法  
 第三步：实际是计算每个byte中的1的数量，最多8（0b1000）个，占4bit，可以最后进行位与运算消位，减少一次&运算：i = (i + (i >>> 4)) & 0x0f0f0f0f  
 第四,五步：同上理由，可以最后消位。但是由于int最多32（0b100000）个1，所以这两步可以不消位，最后一步把不需要的bit位抹除就可以了：i & 0x3f  
+
+## 149. 直线上最多的点数
+用辗转相除法或更相减损法求两个正整数的最大公约数（Greatest common divisor）
+### 辗转相除法
+~~~
+public int gcd(int a, int b) {
+    if (a % b == 0) {
+        return b;
+    } else {
+        return gcd(b, a % b);
+    }
+}
+~~~
+原理：两个正整数a和b（a>b），它们的最大公约数等于a除以b的余数c和b之间的最大公约数。
+递归计算余数c与较小数b之间的最大公约数，当余数c为0时，较小数b就是最大公约数。
+### 更相减损法
+~~~
+public int gcd(int a, int b) {
+    if (a == b) {
+        return a;
+    }
+    if (a < b) {
+        return gcd(a, b - a);
+    } else {
+        return gcd(b, a - b);
+    }
+}
+~~~
+原理：两个正整数a和b（a>b），它们的最大公约数等于a-b的差值c和较小数b的最大公约数。
+递归计算差值c与较小数b的最大公约数，当差值c与较小数b相等时，最大公约数就是最终相等的两个数。
