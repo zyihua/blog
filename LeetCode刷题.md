@@ -83,6 +83,7 @@ public static int BFS() {
     while (!queue.isEmpty()) {
         ++step;
         int size = queue.size();
+        // 这个for循环用来控制step的值
         for (int i = 0; i < size; ++i) {
             // 获取当前状态
             String status = queue.poll();
