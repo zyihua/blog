@@ -58,3 +58,12 @@ public int gcd(int a, int b) {
 ~~~
 原理：两个正整数a和b（a>b），它们的最大公约数等于a-b的差值c和较小数b的最大公约数。
 递归计算差值c与较小数b的最大公约数，当差值c与较小数b相等时，最大公约数就是最终相等的两个数。
+
+## 752. 打开转盘锁
+广度优先搜索 (Breadth first search, BFS) 与深度优先搜索(Depth first search, DFS);
+A\*算法
+### BFS
+~~~
+
+~~~
+
