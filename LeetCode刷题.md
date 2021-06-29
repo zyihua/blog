@@ -129,3 +129,35 @@ Arrays.equals(数组a, 数组b);
 // 多维数组
 Arrays.deepEquals(数组a, 数组b);
 ~~~
+
+## 168. Excel表列名称
+十进制数转其他进制数，除留取余，逆序排列
+其他进制数转十进制数，按权展开
+### 十进制数转26进制数
+~~~
+public String convertToN(int number) {
+    if (number == 0) {
+        return "0";
+    }
+    StringBuilder res = new StringBuilder();
+    while(number != 0) {
+        res.append(number % 26);
+        number  = number / 26;
+    }
+    return res.reverse().toString();
+}
+~~~
+### 26进制数转十进制数
+~~~
+public String convertToDec(String number) {
+    String numStr = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    StringBuilder string = new StringBuilder(number);
+    char[] array = string.reverse().toString().toCharArray();
+    long result = 0;
+    for (int i = 0; i < array.length; i++) {
+        int index = numStr.indexOf(array[i]);
+        result += index * Math.pow(26, i);
+    }
+    return result;
+}
+~~~
