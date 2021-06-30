@@ -161,3 +161,39 @@ public String convertToDec(String number) {
     return result;
 }
 ~~~
+
+## 37. 序列化二叉树
+二叉树的广度优先遍历与深度优先遍历,遍历后的还原
+广度优先遍历又叫层次遍历
+深度优先遍历又分前序遍历，中序遍历，后序遍历
+### 二叉树的DFS
+~~~
+public void traverse(TreeNode root) {
+    // 前序遍历
+    traverse(root.left)
+    // 中序遍历
+    traverse(root.right)
+    // 后序遍历
+}
+~~~
+### 字串还原为二叉树
+~~~
+public TreeNode deserialize(String data) {
+    String[] arr = data.split(",");
+    Queue<String> queue = new LinkedList<String>();
+    for(int i = 0; i < arr.length; i++){
+        queue.offer(arr[i]);
+    }
+    return help(queue);
+}
+public TreeNode help(Queue<String> queue){
+    String val = queue.poll();
+    if(val.equals("null")){
+        return null;
+    }
+    TreeNode root = new TreeNode(Integer.valueOf(val));
+    root.left = help(queue);
+    root.right = help(queue);
+    return root;
+}
+~~~
