@@ -197,3 +197,52 @@ public TreeNode help(Queue<String> queue){
     return root;
 }
 ~~~
+
+## 726. 原子的数量
+表达式的解析，通用的解法是使用递归或栈。本题中我们将使用栈解决。
+### 栈
+~~~
+//核心代码
+while (i < n) {
+    char ch = formula.charAt(i);
+    if (ch == '(') {
+        i++;
+        stack.push(new HashMap<String, Integer>()); // 将一个空的哈希表压入栈中，准备统计括号内的原子数量
+    } else if (ch == ')') {
+        i++;
+        int num = parseNum(); // 括号右侧数字
+        Map<String, Integer> popMap = stack.pop(); // 弹出括号内的原子数量
+        Map<String, Integer> topMap = stack.peek();
+        for (Map.Entry<String, Integer> entry : popMap.entrySet()) {
+            String atom = entry.getKey();
+            int v = entry.getValue();
+            topMap.put(atom, topMap.getOrDefault(atom, 0) + v * num); // 将括号内的原子数量乘上 num，加到上一层的原子数量中
+        }
+    } else {
+        String atom = parseAtom();
+        int num = parseNum();
+        Map<String, Integer> topMap = stack.peek();
+        topMap.put(atom, topMap.getOrDefault(atom, 0) + num); // 统计原子数量
+    }
+}
+//括号右侧字母或字符
+public String parseAtom() {
+    StringBuffer sb = new StringBuffer();
+    sb.append(formula.charAt(i++)); // 扫描首字母
+    while (i < n && Character.isLowerCase(formula.charAt(i))) {
+        sb.append(formula.charAt(i++)); // 扫描首字母后的小写字母
+    }
+    return sb.toString();
+}
+//括号右侧数字
+public int parseNum() {
+    if (i == n || !Character.isDigit(formula.charAt(i))) {
+        return 1; // 不是数字，视作 1
+    }
+    int num = 0;
+    while (i < n && Character.isDigit(formula.charAt(i))) {
+        num = num * 10 + formula.charAt(i++) - '0'; // 扫描数字
+    }
+    return num;
+}
+~~~
