@@ -246,3 +246,10 @@ public int parseNum() {
     return num;
 }
 ~~~
+## 1418. 点菜展示表
+HashMap的keySet()是乱序输出。
+### set转array
+~~~
+String[] array = set.toArray(new String[0]);
+~~~
+对于返回值，如果参数指定的数组能够容纳 Set 集合的所有内容，就使用该数组保存 Set 集合中的所有对象，并返回该数组；否则，返回一个新的能够容纳 Set 集合中所有内容的数组。
