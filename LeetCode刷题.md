@@ -300,8 +300,11 @@ public static boolean isPowerOf2(int num) {
 所以b的逆元就是power（b, p - 2）,如何求b的p-2次幂，这里引入第四个概念“快速幂”  
 （4）快速幂
 ~~~
-long long fastPower(long long base, long long power) {
-    long long result = 1;
+// java API计算一个数的幂
+Math.pow(base, power);
+// 快速幂
+public static double fastPower(double base,  double power) {
+    double result = 1;
     while (power > 0) {
         if (power % 2 == 1) {
             result = result * base;
