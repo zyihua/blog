@@ -279,7 +279,7 @@ public static boolean isPowerOf2(int num) {
 ![image](https://user-images.githubusercontent.com/47979659/124879413-c930b880-dfff-11eb-87a7-3fd964aae318.png)
 
 ### 组合数取模
-求(a / b) mod c
+求(a / b) mod c  
 (1)模运算
 ~~~
 (a / b) mod c != (a mod c / b mod c) mod c
