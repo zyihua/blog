@@ -256,6 +256,7 @@ String[] array = set.toArray(new String[0]);
 
 ## 1711. 大餐计数
 用位运算判断一个数是否是2的幂，注意排除0
+大数对质数1e9 + 7取余（也叫取模）
 ### 是否是2的幂
 ~~~
 // 判断是否是2的幂
@@ -266,3 +267,11 @@ public static boolean isPowerOf2(int num) {
     return false;
 }
 ~~~
+### 取模公式
+~~~
+(a+b) mod c
+=(a mod c+ b mod c) mod c
+=(a mod c+ b) mod c
+~~~
+### 排列组合之组合数公式
+![image](https://user-images.githubusercontent.com/47979659/124879413-c930b880-dfff-11eb-87a7-3fd964aae318.png)
