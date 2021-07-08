@@ -293,8 +293,9 @@ public static boolean isPowerOf2(int num) {
 借助逆元我们可以把模运算的除法转为乘法，那如何求一个数的逆元呢，有两种方法：“拓展欧几里得算法”和“费马小定理”，这里介绍第三个概念“费马小定理”
 (3)费马小定理
 ~~~
-![image](https://user-images.githubusercontent.com/47979659/124887593-e4072b00-e007-11eb-9af0-e3fb763a1728.png)
+
 ~~~
+![image](https://user-images.githubusercontent.com/47979659/124887593-e4072b00-e007-11eb-9af0-e3fb763a1728.png)
 因为题中c为质数，所以可以用费马小定理
 所以b的逆元就是power（b, p - 2）,如何求b的p-2次幂，这里引入第四个概念“快速幂”
 （4）快速幂
