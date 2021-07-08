@@ -303,8 +303,8 @@ public static boolean isPowerOf2(int num) {
 // java API计算一个数的幂
 Math.pow(base, power);
 // 快速幂（防止溢出一般做取模操作）
-public static double fastPower(double base,  double power) {
-    double result = 1;
+public static int fastPower(int base,  int power) {
+    int result = 1;
     while (power > 0) {
         if (power % 2 == 1) {
             result = result * base % 100000000007;
