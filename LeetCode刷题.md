@@ -272,6 +272,43 @@ public static boolean isPowerOf2(int num) {
 (a+b) mod c
 =(a mod c+ b mod c) mod c
 =(a mod c+ b) mod c
+
+(a*b*c)%d=(a%d*b%d*c%d)%d
 ~~~
 ### 排列组合之组合数公式
 ![image](https://user-images.githubusercontent.com/47979659/124879413-c930b880-dfff-11eb-87a7-3fd964aae318.png)
+
+### 组合数取模
+求(a / b) mod c
+(1)模运算
+~~~
+(a / b) mod c != (a mod c / b mod c) mod c
+~~~
+这里用到第一个概念“模运算”，模运算与基本四则运算有些相似，但是除法例外，所以引入第二个概念“逆元”。
+（2）逆元
+~~~
+(a / b) mod c = （a * (b的逆元)）mod c
+~~~
+如果(ax) mod c = 1， 那么x的最小正整数解就是a的逆元
+借助逆元我们可以把模运算的除法转为乘法，那如何求一个数的逆元呢，有两种方法：“拓展欧几里得算法”和“费马小定理”，这里介绍第三个概念“费马小定理”
+(3)费马小定理
+~~~
+![image](https://user-images.githubusercontent.com/47979659/124887593-e4072b00-e007-11eb-9af0-e3fb763a1728.png)
+~~~
+因为题中c为质数，所以可以用费马小定理
+所以b的逆元就是power（b, p - 2）,如何求b的p-2次幂，这里引入第四个概念“快速幂”
+（4）快速幂
+~~~
+long long fastPower(long long base, long long power) {
+    long long result = 1;
+    while (power > 0) {
+        if (power % 2 == 1) {
+            result = result * base;
+        }
+        power = power / 2;
+        base = (base * base);
+    }
+    return result;
+}
+~~~
+快速幂算法的核心思想就是每一步都把指数分成两半，而相应的底数做平方运算
