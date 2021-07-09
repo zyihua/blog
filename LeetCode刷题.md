@@ -316,3 +316,43 @@ public static int fastPower(int base,  int power) {
 }
 ~~~
 快速幂算法的核心思想就是每一步都把指数分成两半，而相应的底数做平方运算
+
+## 面试题 17.10. 主要元素
+用摩尔投票法找出一个数组的主要元素（数组中占比超过一半的元素称之为主要元素）
+~~~
+public static int majorityElement(int[] nums) {
+    // 摩尔投票法
+    int candidate = -1;
+    int count = 0;
+    for (int num : nums) {
+        if (count == 0) {
+            candidate = num;
+        }
+        if (candidate == num) {
+            count++;
+        } else {
+            count--;
+        }
+    }
+    // 验证候选值是否是主要元素
+    count = 0;
+    int length = nums.length;
+    for (int num : nums) {
+        if (num == candidate) {
+            count++;
+        }
+    }
+    return count * 2 > length ? candidate : -1;
+}
+~~~
+Boyer-Moore 投票算法的步骤如下：
+
+维护一个候选主要元素 candidate 和候选主要元素的出现次数 count，初始时 candidate 为任意值，count=0；
+
+遍历数组中的所有元素，遍历到元素 x 时，进行如下操作：
+
+如果 count=0，则将x的值赋给 candidate，否则不更新 candidate 的值；
+
+如果 x=candidate，则将 count 加 1，否则将 count 减 1。
+
+遍历结束之后，如果数组 nums 中存在主要元素，则 candidate 即为主要元素。
