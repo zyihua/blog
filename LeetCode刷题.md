@@ -356,3 +356,22 @@ Boyer-Moore 投票算法的步骤如下：
 如果 x=candidate，则将 count 加 1，否则将 count 减 1。
 
 遍历结束之后，如果数组 nums 中存在主要元素，则 candidate 即为主要元素。
+
+## 剑指 Offer 53 - I. 在排序数组中查找数字 I
+有序数组，用二分查找更快速
+### 二分查找
+~~~
+public int binarySearch(int[] nums, int target, boolean lower) {
+    int left = 0, right = nums.length - 1, ans = nums.length;
+    while (left <= right) {
+        int mid = (left + right) / 2;
+        if (nums[mid] > target || (lower && nums[mid] >= target)) {
+            right = mid - 1;
+            ans = mid;
+        } else {
+            left = mid + 1;
+        }
+    }
+    return ans;
+}
+~~~
