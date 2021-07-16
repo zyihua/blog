@@ -361,6 +361,7 @@ Boyer-Moore 投票算法的步骤如下：
 有序数组，用二分查找更快速
 ### 二分查找
 ~~~
+// lower为true时查找大于等于target的元素，lower为false时查找大于target的元素
 public int binarySearch(int[] nums, int target, boolean lower) {
     int left = 0, right = nums.length - 1, ans = nums.length;
     while (left <= right) {
