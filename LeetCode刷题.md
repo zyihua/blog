@@ -376,3 +376,19 @@ public int binarySearch(int[] nums, int target, boolean lower) {
     return ans;
 }
 ~~~
+
+## 1838. 最高频元素的频数
+滑动窗口
+### 滑动窗口
+~~~
+for (right < s.size()) {
+    // 增大窗口
+    window.add(s.right);
+    right++;
+    while(windows need shrink) {
+        // 缩小窗口
+        window.remove(s.left);
+        left++;
+    }
+}
+~~~
