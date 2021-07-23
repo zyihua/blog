@@ -392,3 +392,35 @@ for (right < s.size()) {
     }
 }
 ~~~
+
+## 1893. 检查是否区域内所有整数都被覆盖
+差分数组，适用于区间频繁修改，而且这个区间范围是比较大的，离线查询的情况
+### 差分数组
+~~~
+// 返回数组nums的差分数组
+public static int[] differentialArray(int[] nums) {
+    int[] diff = new int[nums.length];
+    diff[0] = nums[0];
+    for (int i = 1; i < nums.length; i++) {
+        diff[i] = nums[i] - nums[i - 1];
+    }
+    return diff;
+}
+
+// 返回差分数组diff的原数组
+public static int[] restoresArray(int[] diff) {
+    int[] res = new int[diff.length];
+    res[0] = diff[0];
+    for (int i = 1; i < diff.length; i++) {
+        res[i] = res[i - 1] + diff[i];
+    }
+    return res;
+}
+
+// 修改[left, right]区间的值，都加3
+public static int[] modifiesArray(int[] diff, int left, int right) {
+    diff[left] += 3;
+    diff[right + 1] -= 3;
+    return diff;
+}
+~~~
