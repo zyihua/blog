@@ -1,0 +1,14 @@
+## UI
+### 更新界面
+requestLayout：会触发三大流程。
+invalidate：触发 onDraw 流程，在 UI 线程调用。
+postInvalidate：触发 onDraw 流程，在非 UI 线程中调用。
+
+### 动画效果ValueAnimator
+~~~
+ValueAnimator animator = ValueAnimator.ofInt(0, 100);
+animator.setDuration(1000); // 动画持续时间1000ms
+animator.setInterpolator(new LinearInterpolator()); // 动画移动模式为匀速移动
+animator.addUpdateListener(); // 设置监听
+animator.start(); // 开始动画
+~~~
