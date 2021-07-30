@@ -149,7 +149,7 @@ public String convertToN(int number) {
 ~~~
 ### 26进制数转十进制数
 ~~~
-public String convertToDec(String number) {
+public long convertToDec(String number) {
     String numStr = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     StringBuilder string = new StringBuilder(number);
     char[] array = string.reverse().toString().toCharArray();
