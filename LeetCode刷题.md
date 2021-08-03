@@ -455,13 +455,14 @@ void dijkstra() {
     Arrays.fill(dist, INF);
     Arrays.fill(vis, false);
     dist[k] = 0;
-    for (int p = 1; p <= n; p++) {
+    for (int p = 1; p <= n; p++) { // 一次循环确定一个点的最短路径
         int t = -1;
-        for (int i = 1; i <= n; i++) {
-            if (!vis[i] && (t == -1 || dist[i] < dist[t])) t = i;
+        for (int i = 1; i <= n; i++) { // 找出距离起点最近的点x
+            if (!vis[i] && (t == -1 || dist[i] < dist[t]))
+            t = i;
         }
-        vis[t] = true;
-        for (int i = 1; i <= n; i++) {
+        vis[t] = true; // 标记点x已经确定最短路径
+        for (int i = 1; i <= n; i++) { // 通过点x更新其他所有点距离起点的最短距离
             dist[i] = Math.min(dist[i], dist[t] + w[t][i]);
         }
     }
