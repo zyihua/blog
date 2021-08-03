@@ -443,3 +443,27 @@ for (int i = 1; i <= m; i++) {
 }
 return dp[m][n];
 ~~~
+
+## 743. 网络延迟时间
+迪杰斯特拉算法（Dijkstra）求最短路径
+### Dijkstra
+~~~
+void dijkstra() {
+    int INF = Integer.MAX_VALUE / 2;
+    int[] dist = new int[N];
+    boolean[] vis = new boolean[N];
+    Arrays.fill(dist, INF);
+    Arrays.fill(vis, false);
+    dist[k] = 0;
+    for (int p = 1; p <= n; p++) {
+        int t = -1;
+        for (int i = 1; i <= n; i++) {
+            if (!vis[i] && (t == -1 || dist[i] < dist[t])) t = i;
+        }
+        vis[t] = true;
+        for (int i = 1; i <= n; i++) {
+            dist[i] = Math.min(dist[i], dist[t] + w[t][i]);
+        }
+    }
+}
+~~~
