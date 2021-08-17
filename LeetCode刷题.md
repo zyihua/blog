@@ -468,3 +468,12 @@ void dijkstra() {
     }
 }
 ~~~
+
+## 551. 学生出勤记录 I
+记录下奇妙的一行代码解法
+### 一行代码
+~~~
+public boolean checkRecord(String s) {
+    return s.indexOf("A") == s.lastIndexOf("A") && !s.contains("LLL");
+}
+~~~
