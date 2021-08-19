@@ -12,3 +12,13 @@ animator.setInterpolator(new LinearInterpolator()); // 动画移动模式为匀�
 animator.addUpdateListener(); // 设置监听
 animator.start(); // 开始动画
 ~~~
+
+### 进度条
+Dialog progressDialog = new Dialog(activity);
+progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+ProgressBar progressBar = new ProgressBar(activity);
+TypedValue typedValue = new TypedValue();
+progressBar.getContext().getTheme().resolveAttribute(android.R.attr.progressBarStyleLarge, typedValue, true);
+progressDialog.setContentView(progressBar);
+progressDialog.show();
