@@ -1,10 +1,15 @@
+# 安卓
+
 ## UI
+
 ### 更新界面
+
 requestLayout：会触发三大流程。
 invalidate：触发 onDraw 流程，在 UI 线程调用。
 postInvalidate：触发 onDraw 流程，在非 UI 线程中调用。
 
 ### 动画效果ValueAnimator
+
 ~~~
 ValueAnimator animator = ValueAnimator.ofInt(0, 100);
 animator.setDuration(1000); // 动画持续时间1000ms
@@ -14,6 +19,7 @@ animator.start(); // 开始动画
 ~~~
 
 ### 进度条
+
 Dialog progressDialog = new Dialog(activity);
 progressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 progressDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -22,3 +28,177 @@ TypedValue typedValue = new TypedValue();
 progressBar.getContext().getTheme().resolveAttribute(android.R.attr.progressBarStyleLarge, typedValue, true);
 progressDialog.setContentView(progressBar);
 progressDialog.show();
+
+## gradle
+
+通过ext为project,Task添加属性。
+
+通过apply plugin：‘java'来应用插件，可以引入大量任务，如
+
+~~~
+assemble：装配整个项目
+build：装配并测试该项目
+clean：删除构建目录的所有内容
+~~~
+
+通过sourceSets配置被依赖的源代码路径
+
+使用repositories{maven { url “http:” }}配置maven中央仓库的国内镜像
+
+使用configurations配置组，可以通过组名来为依赖组配置jar包
+
+### project的build.gradle
+
+~~~
+buildscript {//这里是gradle脚本执行所需依赖，分别是对应的maven库和插件
+    
+    repositories {
+        google()//从Android Studio3.0后新增了google()配置，可以引用google上的开源项目
+        jcenter()//是一个类似于github的代码托管仓库，声明了jcenter()配置，可以轻松引用 jcenter上的开源项目
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'////此处是android的插件gradle，gradle是一个强大的项目构建工具
+        
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {//这里是项目本身需要的依赖，比如项目所需的maven库
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+// 运行gradle clean时，执行此处定义的task任务。
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+~~~
+
+module的build.gradle
+
+~~~
+dependencies{}闭包：
+该闭包定义了项目的依赖关系，一般项目都有三种依赖方式：本地依赖、库依赖和远程依赖。本地依赖可以对本地的jar包或目录添加依赖关系，库依赖可以对项目中的库模块添加依赖关系，远程依赖可以对jcener库上的开源项目添加依赖关系。
+
+dependencies {//项目的依赖关系
+    implementation fileTree(include: ['*.jar'], dir: 'libs')//本地jar包依赖
+    implementation 'com.android.support:appcompat-v7:27.1.1'//远程依赖
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    testImplementation 'junit:junit:4.12'//声明测试用例库
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+~~~
+
+## 像素密度
+
+| 缩写    | 全称                      | 描述         | 举例                                                         |
+| ------- | ------------------------- | ------------ | ------------------------------------------------------------ |
+| px      | pixel                     | 像素         | 分辨率如1920*1080就是指的像素px = dp * (dpi / 160)           |
+| dpi     | Dots Per Inch             | 每英寸点数   | 320X480分辨率的手机，宽2英寸，高3英寸, 每英寸包含的像素点的数量为320/2=160dpi（横向）或480/3=160dpi（纵向），160就是这部手机的dpi，横向和纵向的这个值都是相同的，原因是大部分手机屏幕使用正方形的像素点。 |
+| density |                           | 屏幕密度     | density = dpi/160                                            |
+|         |                           |              |                                                              |
+| dp      | device independent pixels | 设备独立像素 | 在屏幕密度dpi = 160屏幕上，1dp = 1px                         |
+| sp      |                           |              |                                                              |
+
+分辨率获取方式：adb shell wm size
+
+像素密度dpi获取方式： adb shell wm density
+
+使用密度无关像素 (dp) 作为度量单位来设计界面。dp 是一个虚拟像素单位，1 dp 约等于中密度屏幕（160dpi；“基准”密度）上的 1 像素。对于其他每个密度，Android 会将此值转换为相应的实际像素数。
+
+定义文本大小时，您应改用可缩放像素 (sp) 作为单位（但切勿将 sp 用于布局尺寸）。默认情况下，sp 单位与 dp 大小相同，但它会根据用户的首选文本大小来调整大小。
+
+| `ldpi`    | 适用于低密度 (ldpi) 屏幕 (~ 120dpi) 的资源。                 |
+| --------- | ------------------------------------------------------------ |
+| `mdpi`    | 适用于中密度 (mdpi) 屏幕 (~ 160dpi) 的资源（这是基准密度）。 |
+| `hdpi`    | 适用于高密度 (hdpi) 屏幕 (~ 240dpi) 的资源。                 |
+| `xhdpi`   | 适用于加高 (xhdpi) 密度屏幕 (~ 320dpi) 的资源。              |
+| `xxhdpi`  | 适用于超超高密度 (xxhdpi) 屏幕 (~ 480dpi) 的资源。           |
+| `xxxhdpi` | 适用于超超超高密度 (xxxhdpi) 屏幕 (~ 640dpi) 的资源。        |
+
+## 常用控件
+
+### 列表ListView
+
+一般列表自带分割线不符合高保真，故隐藏控件自带分割线，自己实现
+
+~~~Andoird xml文件
+<ListView
+        android:id="@+id/lvAboutRpk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"/> // 隐藏分割线
+~~~
+
+分割线的实现：
+
+~~~Android xml文件
+<TextView
+        android:id="@+id/vDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginStart="@dimen/appgallery_column_system_content_margin"
+        android:layout_marginEnd="@dimen/appgallery_column_system_content_margin"
+        android:background="@color/hwdivider_horizontal_color_emui" />
+~~~
+
+隐藏滚动条和快速滚动条（为了美观）：
+
+~~~Java
+listView.setVerticalScrollBarEnabled(false);
+listView.setFastScrollEnabled(false);
+~~~
+
+
+
+# Java
+
+
+
+# windows脚本
+
+1.  echo off
+
+    关闭命令回显
+
+2.  命令前加@
+
+    不显示本条命令
+
+3.  rem
+
+    表示此命令后的字符为解释行，不执行，只是给自己今后查找用的
+
+4.  Del：删除文件
+    Copy：复制文件
+    Xcopy：复制文件夹
+    Md：创建文件夹
+    rd：删除文件夹
+    ren：重命名文件(夹)
+    move：移动文件(夹)
+    find：字符串查找
+    findstr：字符串查找增强，可以进行模式匹配搜索
+
+5.  %cd%是bat中提取当前运行路径的变量
+
+6.  下载网络文件
+
+    bitsadmin /transfer “任务名称” http://cmc-szver-artifactory.cmc.tools.huawei.com/artifactory/ccs/fastApp/BaiduLBS_Android.jar %cd%/aa/bb/BaiduLBS_Android.jar
+
+7.  Windows：
+
+    >   “/”是表示参数，“\”是表示本地路径。
+
+    Linux：
+
+    >   “/”表示路径，“\”表示转义，“-”和“–”表示参数。
+
+    网络：
+
+    >   由于网络使用Unix标准，所以网络路径用“/”。
