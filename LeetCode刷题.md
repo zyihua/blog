@@ -459,24 +459,74 @@ public boolean checkRecord(String s) {
 ~~~
 
 ## 704. 二分查找
-有序数组，用二分查找更快速
+有序数组，用二分查找更快速；二分查找仅限于有序数组。
 二分查找思想很简单，但代码实现需要注意细节
-### 二分查找
+二分查找分三种情况，比如{1,2,2,2,3}，当目标值为2时，是要查询哪个2呢。
+此时普通的二分查找只能随缘返回下标了。
+左侧边界的二分查找会返回最左侧的2的下标。
+右侧边界的二分查找会返回最右侧的2的下标。
+### 普通二分查找
 ~~~
 public int search(int[] nums, int target) {
-        int left = 0;
-        int right = nums.length - 1;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-            if (nums[mid] < target) {
-                left = mid + 1;
-            } else if (nums[mid] > target){
-                right = mid - 1;
-            } else {
-                return mid;
-            }
+    int left = 0;
+    int right = nums.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target) {
+            left = mid + 1;
+        } else if (nums[mid] > target){
+            right = mid - 1;
+        } else {
+            return mid;
         }
-        return -1;
     }
+    return -1;
+}
 ~~~
 计算 mid 时需要防止溢出，代码中 left + (right - left) / 2 就和 (left + right) / 2 的结果相同，但是有效防止了 left 和 right 太大直接相加导致溢出
+
+### 返回左侧边界的二分查找
+~~~
+public int searchLeft(int[] nums, int target) {
+    int left = 0;
+    int right = nums.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target) {
+            left = mid + 1;
+        } else if (nums[mid] > target) {
+            right = mid - 1;
+        } else if (nums[mid] == target) {
+            // 别返回，锁定左侧边界
+            right = mid - 1;
+        }
+    }
+    // 最后要检查 left 越界的情况
+    if (left >= nums.length || nums[left] != target)
+        return -1;
+    return left;
+}
+~~~
+
+### 返回右侧边界的二分查找
+~~~
+public int searchRight(int[] nums, int target) {
+    int left = 0;
+    int right = nums.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] < target) {
+            left = mid + 1;
+        } else if (nums[mid] > target) {
+            right = mid - 1;
+        } else if (nums[mid] == target) {
+            // 别返回，锁定右侧边界
+            left = mid + 1;
+        }
+    }
+    // 最后要检查 right 越界的情况
+    if (right < 0 || nums[right] != target)
+        return -1;
+    return left;
+}
+~~~
