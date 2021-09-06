@@ -477,3 +477,25 @@ public boolean checkRecord(String s) {
     return s.indexOf("A") == s.lastIndexOf("A") && !s.contains("LLL");
 }
 ~~~
+
+## 704. 二分查找
+二分查找思想很简单，但代码实现需要注意细节
+### 二分查找
+~~~
+public int search(int[] nums, int target) {
+        int left = 0;
+        int right = nums.length - 1;
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else if (nums[mid] > target){
+                right = mid - 1;
+            } else {
+                return mid;
+            }
+        }
+        return -1;
+    }
+~~~
+计算 mid 时需要防止溢出，代码中 left + (right - left) / 2 就和 (left + right) / 2 的结果相同，但是有效防止了 left 和 right 太大直接相加导致溢出
