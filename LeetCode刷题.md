@@ -357,26 +357,6 @@ Boyer-Moore 投票算法的步骤如下：
 
 遍历结束之后，如果数组 nums 中存在主要元素，则 candidate 即为主要元素。
 
-## 剑指 Offer 53 - I. 在排序数组中查找数字 I
-有序数组，用二分查找更快速
-### 二分查找
-~~~
-// lower为true时查找大于等于target的元素，lower为false时查找大于target的元素
-public int binarySearch(int[] nums, int target, boolean lower) {
-    int left = 0, right = nums.length - 1, ans = nums.length;
-    while (left <= right) {
-        int mid = (left + right) / 2;
-        if (nums[mid] > target || (lower && nums[mid] >= target)) {
-            right = mid - 1;
-            ans = mid;
-        } else {
-            left = mid + 1;
-        }
-    }
-    return ans;
-}
-~~~
-
 ## 1838. 最高频元素的频数
 滑动窗口
 ### 滑动窗口
@@ -479,6 +459,7 @@ public boolean checkRecord(String s) {
 ~~~
 
 ## 704. 二分查找
+有序数组，用二分查找更快速
 二分查找思想很简单，但代码实现需要注意细节
 ### 二分查找
 ~~~
