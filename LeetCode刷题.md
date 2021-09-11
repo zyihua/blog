@@ -530,3 +530,43 @@ public int searchRight(int[] nums, int target) {
     return left;
 }
 ~~~
+
+## 600. 不含连续1的非负整数
+01字典树
+### dp + 01字典树求解
+~~~
+public int findIntegers(int n) {
+    int[] dp = new int[31];
+    dp[0] = dp[1] = 1;
+    for (int i = 2; i < 31; ++i) {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+
+    int pre = 0, res = 0;
+    for (int i = 29; i >= 0; --i) {
+        int val = 1 << i;
+        if ((n & val) != 0) {  // 节点为1时，即树高为i + 2的字典树有右子树时;
+            n -= val;
+            res += dp[i + 1];  // 加上树高为i + 2的字典树的左子树的路径数量（即根节点为0的满二叉树中，不包含连续1的从根节点到叶节点的路径数量）
+            if (pre == 1) {   // 有连续1直接返回
+                break;
+            }
+            pre = 1;
+        } else {
+            pre = 0;
+        }
+
+        if (i == 0) {
+            ++res;
+        }
+    }
+
+    return res;
+}
+~~~
+状态转移方程：
+dp[t]={ dp[t−1]+dp[t−2],t≥2
+      { 1,              t<2
+dp[t] 表示高度为 t+1、根结点为 0 的满二叉树中，不包含连续 1 的从根结点到叶结点的路径数量。
+ 
+
