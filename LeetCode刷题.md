@@ -569,4 +569,15 @@ dp[t]={ dp[t−1]+dp[t−2],t≥2
       { 1,              t<2
 dp[t] 表示高度为 t+1、根结点为 0 的满二叉树中，不包含连续 1 的从根结点到叶结点的路径数量。
  
+## 496. 下一个更大元素 I
+放元素入栈，若找到比自己大的元素就出栈，否则继续入栈，直到找到比自己大的为止
+### 单调栈
+~~~
+for (int i = 0; i < len2; i++) {
+    while (!stack.isEmpty() && stack.peekLast() < nums2[i]) { // 找到比自己大的就出栈
+        map.put(stack.removeLast(), nums2[i]);
+    }
+    stack.addLast(nums2[i]);
+}
+~~~
 
