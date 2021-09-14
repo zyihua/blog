@@ -581,3 +581,21 @@ for (int i = 0; i < len2; i++) {
 }
 ~~~
 
+## 524. 通过删除字母匹配到字典里最长单词
+双指针法求t是否是s的子序列
+### 双指针法判断t是否是s的子序列
+~~~
+for (String t : dictionary) {
+    int i = 0, j = 0;
+    while (i < t.length() && j < s.length()) {
+        if (t.charAt(i) == s.charAt(j)) {
+            ++i;
+        }
+        ++j;
+    }
+    if (i == t.length()) {
+        return t;
+    }
+}
+return "";
+~~~
