@@ -599,3 +599,28 @@ for (String t : dictionary) {
 }
 return "";
 ~~~
+
+## 212. 单词搜索 II
+字典树
+### 字典树
+~~~
+class Trie {
+    private String val;
+    private Trie[] childs = new Trie[26];
+    Trie () {
+
+    }
+
+    public void insert(String word) {
+        Trie cur = this;
+        for (int i = 0; i < word.length(); i++) {
+            int index = word.charAt(i) - 'a';
+            if (cur.childs[index] == null) {
+                cur.childs[index] = new Trie();
+            }
+            cur = cur.childs[index];
+        }
+        cur.val = word;
+    }
+}
+~~~
