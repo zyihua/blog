@@ -642,3 +642,17 @@ public boolean canWinNim(int n) {
 只有一堆n个物品,两个人轮流从这堆物品中取物,规定每次至少取一个,最多取m个.最后取光者得胜
 
 结论：若(m+1) | n，（若n能整除m+1）则先手必败，否则先手必胜
+
+## 371. 两整数之和
+不用加号的两数相加
+### 位运算（加法的底层实现）
+~~~
+public int getSum(int a, int b) {
+    while(b != 0) {
+        int temp = a ^ b; // 无进位时，a + b等于a ^ b
+        b = (a & b) << 1; // 有进位时，a + b等于a ^ b 加上 (a & b) << 1. 直到无进位为止
+        a = temp;
+    }
+    return a;
+}
+~~~
