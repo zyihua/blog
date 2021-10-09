@@ -656,3 +656,20 @@ public int getSum(int a, int b) {
     return a;
 }
 ~~~
+
+## 352. 将数据流变为多个不相交区间
+利用并查集
+### 并查集的初始化模板
+~~~
+void init(int n)
+{
+    for (int i = 1; i <= n; ++i)
+        nums[i] = i;
+}
+~~~
+### 并查集的查询与合并模板
+~~~
+private int find(int x){
+    return nums[x] == x ? x : (nums[x] = find(nums[x]));
+}
+~~~
