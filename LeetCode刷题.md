@@ -674,3 +674,27 @@ private int find(int x){
 }
 ~~~
 赋值运算符=的优先级没有三元运算符?:高，这里要加括号
+
+## 240. 搜索二维矩阵 II
+对于有序的矩阵查找
+每行的元素从左到右升序排列。
+每列的元素从上到下升序排列。
+用Z字形查找
+### Z字形查找
+~~~
+public boolean searchMatrix(int[][] matrix, int target) {
+    int x = 0;
+    int y = matrix[0].length - 1; // 从右上角开始查找
+    while (x <= matrix.length - 1 && y >= 0) {
+        if (matrix[x][y] == target) {
+            return true;
+        }
+        if (matrix[x][y] > target) { // 如果（x，y）比目标值大，则y列所有值都比目标值大，所以y-1
+            y--;
+        } else { // 如果（x，y）比目标值小，则x行所有值都比目标值小，所以x+1
+            x++;
+        }
+    }
+    return false;
+}
+~~~
