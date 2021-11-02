@@ -699,3 +699,16 @@ public boolean searchMatrix(int[][] matrix, int target) {
     return false;
 }
 ~~~
+
+## 237. 删除链表中的节点
+java是值传递，不是引用传递
+### 在只给出某个节点的情况下，删除链表中这个节点
+~~~
+public void deleteNode(ListNode node) {
+    node.val = node.next.val;
+    node.next = node.next.next;
+}
+~~~
+这里不能用node = node.next是因为java是值传递，这样只是改变了node这个变量指向的地址，没有改变他指向的对象本身
+如下图所示，node = node.next这个语句只是让node由指向节点2变成了指向节点3，链表本身是没有变化的
+![image](https://user-images.githubusercontent.com/47979659/139775258-62a7df25-1446-43da-a426-20b377dd1407.png)
