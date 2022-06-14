@@ -527,7 +527,7 @@ public int searchRight(int[] nums, int target) {
     // 最后要检查 right 越界的情况
     if (right < 0 || nums[right] != target)
         return -1;
-    return left;
+    return right;
 }
 ~~~
 
